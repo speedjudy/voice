@@ -629,10 +629,10 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("Start Speech Recognigion");
       overlay.style.display = "block";
       overlay.click();
-      // positionOverlay();
+      positionOverlay();
 
       if (!visualAnimationStarted) {
-        // animate();
+        animate();
         visualAnimationStarted = true;
       }
 
