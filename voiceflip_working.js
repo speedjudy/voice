@@ -4,6 +4,51 @@ console.log(entry)
 if (entry["type"] === "back_forward" || entry['type'] === "reload" || entry['type'] === "navigate") {
     initMic();
 }
+
+let overlay = document.createElement("div");
+overlay.style.position = "fixed";
+overlay.style.left = "0";
+overlay.style.right = "0";
+overlay.style.backgroundColor = "#fff";
+overlay.style.height = "90px";
+overlay.style.bottom = "0";
+overlay.style.padding = "10px";
+overlay.style.zIndex = "9999999999";
+overlay.style.pointerEvents = "auto";
+overlay.setAttribute("id", "container-speech");
+
+let innerDiv = document.createElement("span");
+innerDiv.style.backgroundColor = "#fff";
+innerDiv.style.width = "90%";
+innerDiv.style.height = "90%";
+innerDiv.style.display = "block";
+innerDiv.style.zIndex = "999999999999999";
+innerDiv.style.fontSize = "30px";
+innerDiv.style.fontWeight = "bold";
+innerDiv.style.color = "#1a1c21";
+
+innerDiv.innerHTML = "";
+overlay.style.display = "none";
+innerDiv.setAttribute("id", "txtSpeechOutput");
+
+overlay.appendChild(innerDiv);
+document.body.appendChild(overlay);
+
+function positionOverlay() {
+  const windowHeight = window.innerHeight;
+  const overlayHeight = overlay.offsetHeight;
+  if (overlayHeight < windowHeight) {
+    overlay.style.top = windowHeight - overlayHeight + "px";
+  } else {
+    overlay.style.top = "0";
+  }
+}
+
+positionOverlay();
+window.addEventListener("resize", positionOverlay);
+window.addEventListener("scroll", positionOverlay);
+
+
 async function initMic() {
 
 
@@ -59,6 +104,9 @@ async function initMic() {
         speechRecognition.interimResults = false;
         speechRecognition.maxAlternatives = 1;
         speechRecognition.onstart = () => {
+            overlay.style.display = "block";
+            overlay.click();
+            positionOverlay();
             document.getElementById('textResultUjjal').innerText = "";
             document.getElementById('pidsWrapper').style.display = "none";
             document.getElementById('outlineMic').style.animation = "pulseMic 2s infinite"
