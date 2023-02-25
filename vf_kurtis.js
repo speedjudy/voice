@@ -35,7 +35,7 @@ let SpeechRecognition =
   window.msSpeechRecognition ||
   window.oSpeechRecognition ||
   window.SpeechRecognition;
-speechRecognition = new SpeechRecognition();
+speechRecognition = new webkitSpeechRecognition();
 speechRecognition.lang = "en-GB";
 speechRecognition.continuous = false;
 speechRecognition.interimResults = false;
