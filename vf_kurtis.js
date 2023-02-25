@@ -36,8 +36,8 @@ let SpeechRecognition =
   window.SpeechRecognition;
 speechRecognition = new SpeechRecognition();
 speechRecognition.lang = "en-GB";
-speechRecognition.continuous = true;
-speechRecognition.interimResults = true;
+speechRecognition.continuous = false;
+speechRecognition.interimResults = false;
 speechRecognition.maxAlternatives = 1;
 
 let overlay = document.createElement("div");
