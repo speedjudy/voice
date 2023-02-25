@@ -1087,7 +1087,57 @@
   <link rel="preconnect" href="https://fonts.gstatic.com/">
   <link rel="stylesheet" href="https://rentals.ca/static/rentalsca-phoenix/css2">
 
-  <link rel="stylesheet" href="./custom.css" />
+  <style>
+    /* custom css */
+    .tooltip {
+      display: inline-block;
+      background: #27788a;
+      color: #fff;
+      font-weight: bold;
+      padding: 5px 10px;
+      position: relative;
+      border-radius: 4px;
+      font-size: 14px;
+      line-height: 1.4;
+      white-space: normal;
+      outline: 0;
+      transition-property: transform, visibility, opacity;
+    }
+
+    .arrow,
+    .arrow::before {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #27788a;
+    }
+
+    .arrow {
+      visibility: hidden;
+    }
+
+    .arrow::before {
+      visibility: visible;
+      content: '';
+      transform: rotate(45deg);
+    }
+
+    .tooltip[data-popper-placement^='top']>.arrow {
+      bottom: -4px;
+    }
+
+    .tooltip[data-popper-placement^='bottom']>.arrow {
+      top: -4px;
+    }
+
+    .tooltip[data-popper-placement^='left']>.arrow {
+      right: -4px;
+    }
+
+    .tooltip[data-popper-placement^='right']>.arrow {
+      left: -4px;
+    }
+  </style>
 </head>
 
 <body>
@@ -1145,13 +1195,15 @@
             class="switcher-checkbox-labeled language-switcher d-none d-xl-block switcher-checkbox-labeled--left-active"><input
               type="checkbox">
             <div class="switcher-checkbox-labeled__labels"><span class="switcher-checkbox-labeled__label-left">EN</span>
-              <span class="switcher-checkbox-labeled__label-right">FR</span></div>
+              <span class="switcher-checkbox-labeled__label-right">FR</span>
+            </div>
           </label> <a href="https://rentals.ca/manage/listing"
             class="btn-cta btn-cta--secondary btn-cta--border-transparent d-none d-sm-inline-block" data-msgid="
         Post a Rental
       " data-current-language="en">
             Post a Rental
-          </a></div>
+          </a>
+        </div>
       </div>
       <div class="navbar-main__search" style="display: none;">
         <div class="container">
@@ -1194,7 +1246,8 @@
             class="switcher-checkbox-labeled language-switcher d-xl-none switcher-checkbox-labeled--left-active"><input
               type="checkbox">
             <div class="switcher-checkbox-labeled__labels"><span class="switcher-checkbox-labeled__label-left">EN</span>
-              <span class="switcher-checkbox-labeled__label-right">FR</span></div>
+              <span class="switcher-checkbox-labeled__label-right">FR</span>
+            </div>
           </label></div>
         <ul class="navbar-main__aside-items-large">
           <li><a href="https://rentals.ca/manage/listing" data-msgid="Post a Rental" data-current-language="en">Post a

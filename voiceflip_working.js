@@ -87,53 +87,55 @@ async function initMic() {
             // document.getElementById('pidsWrapper').style.display = "none";
             document.getElementById('outlineMic').style.animation = "pulseMic 2s infinite"
             document.getElementById('outlineMic').style.animation = "pulseMic 3s infinite"
-            console.log("asdfasdfsdf")
-            // setTimeout(() => {
-            //     speechRecognition.stop();
-            // }, 10000)
+            setTimeout(() => {
+                speechRecognition.stop();
+            }, 10000)
 
         };
+
+        async function matchedLogic() {
+            if (final_transcript.length === 0) {
+                final_transcript = "apartment"
+            }
+            const response = await fetch('https://kz5l9o5qci.execute-api.us-east-1.amazonaws.com/' + encodeURI(final_transcript) + '/' + encodeURI(locationValue));
+            const responseJson = await response.json();
+            if (responseJson.status) {
+                window.open(responseJson.url, "_self");
+                const matchedWords = responseJson.matching_word;
+                let final_transcript_color = final_transcript
+                matchedWords.map(el => {
+                    let key = Object.keys(el)[0]
+                    if (final_transcript.toLowerCase().includes(key)) {
+                        let color = 'red';
+                        if (el[key] === 'location') {
+                            color = 'red'
+                        } else if (el[key] === 'bathroom' || el[key] === 'bedroom' || el[key] === 'park') {
+                            color = 'darkslateblue'
+                        } else if (el[key] === 'amenities') {
+                            color = 'blue'
+                        } else if (el[key] === 'filters') {
+                            color = 'violet'
+                        } else if (el[key] === 'category') {
+                            color = 'green'
+                        } else if (el[key] === 'floor') {
+                            color = 'skyblue'
+                        } else if (el[key] === 'type') {
+                            color = 'darkgreen'
+                        } else if (el[key] === 'available') {
+                            color = 'darkblue'
+                        }
+                        final_transcript_color = final_transcript_color.toLowerCase().replace(key, '<span style="color: ' + color + ';">' + key[0].toUpperCase() + key.slice(1) + '</span>')
+                    }
+                });
+                document.getElementById('textResultUjjal').innerHTML = final_transcript_color;
+            }
+        }
+
         speechRecognition.onend = () => {
             document.getElementById('outlineMic').style.animation = ""
             document.getElementById('outlineMic').style.animation = ""
             // document.getElementById('pidsWrapper').style.display = "none";
-            // setTimeout(async () => {
-            //     if (final_transcript.length === 0) {
-            //         final_transcript = "apartment"
-            //     }
-            //     const response = await fetch('https://kz5l9o5qci.execute-api.us-east-1.amazonaws.com/' + encodeURI(final_transcript) + '/' + encodeURI(locationValue));
-            //     const responseJson = await response.json();
-            //     if (responseJson.status) {
-            //         window.open(responseJson.url, "_self");
-            //         const matchedWords = responseJson.matching_word;
-            //         let final_transcript_color = final_transcript
-            //         matchedWords.map(el => {
-            //             let key = Object.keys(el)[0]
-            //             if (final_transcript.toLowerCase().includes(key)) {
-            //                 let color = 'red';
-            //                 if (el[key] === 'location') {
-            //                     color = 'red'
-            //                 } else if (el[key] === 'bathroom' || el[key] === 'bedroom' || el[key] === 'park') {
-            //                     color = 'darkslateblue'
-            //                 } else if (el[key] === 'amenities') {
-            //                     color = 'blue'
-            //                 } else if (el[key] === 'filters') {
-            //                     color = 'violet'
-            //                 } else if (el[key] === 'category') {
-            //                     color = 'green'
-            //                 } else if (el[key] === 'floor') {
-            //                     color = 'skyblue'
-            //                 } else if (el[key] === 'type') {
-            //                     color = 'darkgreen'
-            //                 } else if (el[key] === 'available') {
-            //                     color = 'darkblue'
-            //                 }
-            //                 final_transcript_color = final_transcript_color.toLowerCase().replace(key, '<span style="color: ' + color + ';">' + key[0].toUpperCase() + key.slice(1) + '</span>')
-            //             }
-            //         });
-            //         document.getElementById('textResultUjjal').innerHTML = final_transcript_color;
-            //     }
-            // }, 500)
+            setTimeout(matchedLogic, 500);
         };
         speechRecognition.onresult = (event) => {
             var interim_transcript = '';
@@ -148,6 +150,7 @@ async function initMic() {
             console.log("final_transcript", final_transcript);
             document.getElementById('textResultUjjal').innerText = interim_transcript;
             document.getElementById('textResultUjjal').innerText = final_transcript;
+            matchedLogic();
         };
         // Set the onClick property of the start button
         document.querySelector("#circleinMic").onclick = () => {
