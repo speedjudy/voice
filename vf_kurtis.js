@@ -30,6 +30,7 @@ document.head.appendChild(script);
 
 let SpeechRecognition =
   window.webkitSpeechRecognition ||
+  webkitSpeechRecognition ||
   window.mozSpeechRecognition ||
   window.msSpeechRecognition ||
   window.oSpeechRecognition ||
