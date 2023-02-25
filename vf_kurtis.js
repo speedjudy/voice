@@ -632,7 +632,7 @@ document.addEventListener("DOMContentLoaded", function () {
       positionOverlay();
 
       if (!visualAnimationStarted) {
-        animate();
+        // animate();
         visualAnimationStarted = true;
       }
 
