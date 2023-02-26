@@ -33,6 +33,8 @@
     var local_stream = null
     var source = null
     var audioCtx = null
+    var dataArray = null
+    var bufferLength = 0
     let analyser = null;
     const normalize = (val, threshold = 200) => ((val > threshold) ? val - threshold : 0);
     const normalize1 = (val, max, min) => ((val - min) / (max - min))
@@ -313,8 +315,8 @@
 
             analyser.fftSize = defaultState.fftSize // controls the size of the FFT. The FFT is a fast fourier transform. Basically the number of sound samples. Will be used to draw bars in the canvas
 
-            const bufferLength = defaultState.bufferLength;
-            const dataArray = new Uint8Array(bufferLength); // coverting to unsigned 8-bit integer array format because that's the format we need
+            bufferLength = defaultState.bufferLength;
+            dataArray = new Uint8Array(bufferLength); // coverting to unsigned 8-bit integer array format because that's the format we need
 
             animate();
         } catch (e) {
