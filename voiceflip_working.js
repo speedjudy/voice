@@ -48,7 +48,7 @@ async function initMic() {
                     <div class="arrow" data-popper-arrow></div>
                     Say: 1 Bedroom rentals under 3,000 in CityName
                 </div>
-                <canvas id="canvas" width="100%" height="789" style="position:fixed; top:-35px; left:-5px; display:none;"></canvas>
+                <canvas id="canvas" width="100%" height="789" style="position:fixed; top:-35px; left:-6px; display:none;"></canvas>
                 `;
         let elemDivText = document.createElement('div');
         elemDivText.innerHTML = '<div class="textDivMic">' +
@@ -88,8 +88,8 @@ async function initMic() {
         speechRecognition.onstart = () => {
             document.getElementById('textResultUjjal').innerText = "";
             // document.getElementById('pidsWrapper').style.display = "none";
-            document.getElementById('outlineMic').style.animation = "pulseMic 2s infinite"
-            document.getElementById('outlineMic').style.animation = "pulseMic 3s infinite"
+            // document.getElementById('outlineMic').style.animation = "pulseMic 2s infinite"
+            // document.getElementById('outlineMic').style.animation = "pulseMic 3s infinite"
             setTimeout(() => {
                 speechRecognition.stop();
             }, 10000)
