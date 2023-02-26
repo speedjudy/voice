@@ -6,46 +6,6 @@ if (entry["type"] === "back_forward" || entry['type'] === "reload" || entry['typ
     initMic();
 }
 async function initMic() {
-
-    // TUNING PERFORMANCE
-    var audio1;
-    var worker;
-    var canvas = document.getElementById("canvas").transferControlToOffscreen();
-    var audioEl = document.getElementById('audio')
-    var container = document.getElementById('container')
-    var local_stream = null
-    var source = null
-    var audioCtx = null
-    const normalize = (val, threshold = 200) => ((val > threshold) ? val - threshold : 0);
-    const normalize1 = (val, max, min) => ((val - min) / (max - min))
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-    var defaultState = {
-        radius: 60,
-        color: '#257789',
-        showParticles: false,
-        displayType: 0,
-        bufferLength: 110,
-        fftSize: 2 ** 14,
-        bounceMultiplier: 0,
-        beatDetection: false,
-        bounce: 0
-    }
-
-    if (!navigator.getUserMedia)
-        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
-            navigator.mozGetUserMedia || navigator.msGetUserMedia;
-
-    var config = { ...defaultState }
-
-
-
-
-
-
-
-
-
     if ("webkitSpeechRecognition" in window) {
         let script = document.currentScript;
         let fullUrl = script.src.replace('.js', '.css');
@@ -92,7 +52,7 @@ async function initMic() {
             '<span id="textResultUjjal"></span></div>'
         document.body.appendChild(elemDiv);
         document.body.appendChild(elemDivText);
-
+        
         const tooltip = document.querySelector('#toptooltip');
         Popper.createPopper(document.querySelector('.boxMic'), tooltip, {
             placement: 'top',
@@ -125,8 +85,8 @@ async function initMic() {
         speechRecognition.onstart = () => {
             document.getElementById('textResultUjjal').innerText = "";
             // document.getElementById('pidsWrapper').style.display = "none";
-            // document.getElementById('outlineMic').style.animation = "pulseMic 2s infinite"
-            // document.getElementById('outlineMic').style.animation = "pulseMic 3s infinite"
+            document.getElementById('outlineMic').style.animation = "pulseMic 2s infinite"
+            document.getElementById('outlineMic').style.animation = "pulseMic 3s infinite"
             setTimeout(() => {
                 speechRecognition.stop();
             }, 10000)
@@ -196,12 +156,12 @@ async function initMic() {
         document.querySelector("#circleinMic").onclick = () => {
             document.getElementById('textResultUjjal').value = "";
             final_transcript = "";
-            document.getElementById('toptooltip').style.display = "none";
-            document.getElementById('bottomtooltip').style.display = "none";
+            document.getElementById('toptooltip').style.display="none";
+            document.getElementById('bottomtooltip').style.display="none";
             speechRecognition.start();
         };
     } else {
         console.log("Speech Recognition Not Available")
     }
-
+    
 }
