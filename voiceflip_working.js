@@ -48,7 +48,7 @@ async function initMic() {
                     <div class="arrow" data-popper-arrow></div>
                     Say: 1 Bedroom rentals under 3,000 in CityName
                 </div>
-                <canvas id="canvas" width="100%" height="789" style="position:flex; top:-39px; left:-3px; display:none;"></canvas>
+                <canvas id="canvas" width="100%" height="789" style="position:fixed; top:-39px; left:-3px; display:none;"></canvas>
                 `;
         let elemDivText = document.createElement('div');
         elemDivText.innerHTML = '<div class="textDivMic">' +
@@ -101,7 +101,14 @@ async function initMic() {
         let isListening = false;
 
         // TUNING PERFORMANCE
+        var audio1;
+        var worker;
         var canvas = document.getElementById("canvas").transferControlToOffscreen();
+        var audioEl = document.getElementById('audio')
+        var container = document.getElementById('container')
+        var local_stream = null
+        var source = null
+        var audioCtx = null
         var dataArray = null
         var bufferLength = 0
         let analyser = null;
@@ -316,8 +323,10 @@ async function initMic() {
 
         function getMedia() {
             return new Promise((resolve, reject) => {
+                console.log('test 111');
                 if (navigator.getUserMedia) {
                     // local_stream.getAudioTracks()[0].enabled = true;
+                    console.log('test 222');
                     navigator.getUserMedia(
                         { audio: true },
                         function (stream) {
@@ -330,6 +339,7 @@ async function initMic() {
                     );
                 }
                 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                    console.log('test 333');
                     navigator.mediaDevices
                         .getUserMedia({ audio: true })
                         .then(function (stream) {
@@ -343,6 +353,7 @@ async function initMic() {
         }
 
         function animate() {
+            console.log('test 444')
             analyser.getByteFrequencyData(dataArray);
             const setBounce = () => {
                 let max = Math.max(...dataArray.slice(0, config.bufferLength / 2))
@@ -361,6 +372,7 @@ async function initMic() {
         async function listen_audio() {
             try {
                 const stream = await getMedia();
+                console.log('test 555', stream);
                 
                 local_stream = stream
                 // local_stream.getAudioTracks()[0].enabled = true;
@@ -368,6 +380,7 @@ async function initMic() {
 
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)(); // for safari browser // I need to explain the browser restrictions & CORS issues here
 
+                console.log('test 666');
                 let source = audioCtx.createMediaStreamSource(url)
 
                 analyser = audioCtx.createAnalyser();
@@ -473,7 +486,7 @@ async function initMic() {
                 console.log('listen_audio is_avail', is_avail);
                 speechRecognition.start();
                 if (is_avail) {
-                    canvas = document.getElementById("canvas").style.display="inline";
+                    document.getElementById("canvas").style.display = "inline";
                 //   speechRecognition.start();
                 } else {
                   isListening = false;
