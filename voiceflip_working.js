@@ -353,6 +353,7 @@ async function initMic() {
         }
 
         function animate() {
+            console.log('test 444')
             analyser.getByteFrequencyData(dataArray);
             const setBounce = () => {
                 let max = Math.max(...dataArray.slice(0, config.bufferLength / 2))
@@ -379,6 +380,7 @@ async function initMic() {
 
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)(); // for safari browser // I need to explain the browser restrictions & CORS issues here
 
+                console.log('test 666');
                 let source = audioCtx.createMediaStreamSource(url)
 
                 analyser = audioCtx.createAnalyser();
@@ -386,6 +388,7 @@ async function initMic() {
 
                 analyser.fftSize = defaultState.fftSize // controls the size of the FFT. The FFT is a fast fourier transform. Basically the number of sound samples. Will be used to draw bars in the canvas
 
+                console.log('test 777');
                 bufferLength = defaultState.bufferLength;
                 dataArray = new Uint8Array(bufferLength); // coverting to unsigned 8-bit integer array format because that's the format we need
 
