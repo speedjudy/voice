@@ -47,7 +47,6 @@
             navigator.webkitGetUserMedia ||
             navigator.mozGetUserMedia ||
             navigator.msGetUserMedia;
-    console.log(navigator);
 
     var config = { ...defaultState }
 
@@ -236,11 +235,8 @@
 
 
     function getMedia() {
-        console.log("test 1", navigator);
         return new Promise((resolve, reject) => {
-            console.log("test 4");
             if (navigator.getUserMedia) {
-                console.log("test 2");
                 // local_stream.getAudioTracks()[0].enabled = true;
                 navigator.getUserMedia(
                     { audio: true },
@@ -254,7 +250,6 @@
                 );
             }
             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                console.log("test 3");
                 navigator.mediaDevices
                     .getUserMedia({ audio: true })
                     .then(function (stream) {
@@ -295,28 +290,31 @@
     async function listen_audio() {
         try {
             const stream = await getMedia();
-            console.log('I am in listen_audio', stream);
-
+            
             local_stream = stream
             // local_stream.getAudioTracks()[0].enabled = true;
             url = stream
-
+            console.log('test 1111', url);
+            
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)(); // for safari browser // I need to explain the browser restrictions & CORS issues here
+            console.log('test 2222', audioCtx);
             audioEl.src = ''
             let analyser = null;
             let source = audioCtx.createMediaStreamSource(url)
-
+            console.log('test 3333', source);
+            
             analyser = audioCtx.createAnalyser();
             source.connect(analyser)
-
+            
             analyser.fftSize = defaultState.fftSize // controls the size of the FFT. The FFT is a fast fourier transform. Basically the number of sound samples. Will be used to draw bars in the canvas
-
+            
             const bufferLength = defaultState.bufferLength;
             const dataArray = new Uint8Array(bufferLength); // coverting to unsigned 8-bit integer array format because that's the format we need
+            console.log('test 4444', dataArray);
 
             animate();
         } catch (e) {
-            console.log('Error    I am in listen_audio');
+            console.log('Error I am in listen_audio');
             console.log(e)
             local_stream = null;
             return false;
