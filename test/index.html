@@ -25,6 +25,7 @@
     var local_stream = null
     var source = null
     var audioCtx = null
+    let analyser = null;
     const normalize = (val, threshold = 200) => ((val > threshold) ? val - threshold : 0);
     const normalize1 = (val, max, min) => ((val - min) / (max - min))
     canvas.width = window.innerWidth
@@ -298,8 +299,7 @@
             
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)(); // for safari browser // I need to explain the browser restrictions & CORS issues here
             console.log('test 2222', audioCtx);
-            audioEl.src = ''
-            let analyser = null;
+            
             let source = audioCtx.createMediaStreamSource(url)
             console.log('test 3333', source);
             
