@@ -323,8 +323,10 @@ async function initMic() {
 
         function getMedia() {
             return new Promise((resolve, reject) => {
+                console.log('test 111');
                 if (navigator.getUserMedia) {
                     // local_stream.getAudioTracks()[0].enabled = true;
+                    console.log('test 222');
                     navigator.getUserMedia(
                         { audio: true },
                         function (stream) {
@@ -337,6 +339,7 @@ async function initMic() {
                     );
                 }
                 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                    console.log('test 333');
                     navigator.mediaDevices
                         .getUserMedia({ audio: true })
                         .then(function (stream) {
@@ -368,7 +371,8 @@ async function initMic() {
         async function listen_audio() {
             try {
                 const stream = await getMedia();
-
+                console.log('test 555', stream);
+                
                 local_stream = stream
                 // local_stream.getAudioTracks()[0].enabled = true;
                 url = stream
