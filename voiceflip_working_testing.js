@@ -163,5 +163,4 @@ async function initMic() {
     } else {
         console.log("Speech Recognition Not Available")
     }
-    
 }
