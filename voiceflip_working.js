@@ -456,7 +456,7 @@ async function initMic() {
             document.getElementById('outlineMic').style.animation = ""
             document.getElementById('outlineMic').style.animation = ""
             // document.getElementById('pidsWrapper').style.display = "none";
-            // setTimeout(matchedLogic, 500);
+            setTimeout(matchedLogic, 500);
         };
         speechRecognition.onresult = (event) => {
             var interim_transcript = '';
@@ -471,7 +471,7 @@ async function initMic() {
             console.log("final_transcript", final_transcript);
             document.getElementById('textResultUjjal').innerText = interim_transcript;
             document.getElementById('textResultUjjal').innerText = final_transcript;
-            // matchedLogic();
+            matchedLogic();
         };
         // Set the onClick property of the start button
         document.querySelector("#circleinMic").onclick = async () => {
