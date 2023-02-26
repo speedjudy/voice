@@ -284,17 +284,8 @@
             config.radius = Math.min(height, width)
             config.bounce = bounce
         }
-        const setLogo = () => {
-
-            let logoExists = container.querySelector('.logo_img')
-            if (logoExists) {
-                logoExists.height = config.radius * 2
-                logoExists.width = config.radius * 2
-            }
-        }
         setBounce()
         drawVisualizer({ bufferLength, dataArray, config });
-        setTimeout(setLogo, 250)
         requestAnimationFrame(animate); // calls the animate function again. This method is built in
     }
 
