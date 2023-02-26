@@ -376,7 +376,7 @@ async function initMic() {
                 
                 local_stream = stream
                 // local_stream.getAudioTracks()[0].enabled = true;
-                url = stream
+                let url = stream
 
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)(); // for safari browser // I need to explain the browser restrictions & CORS issues here
 
