@@ -48,7 +48,7 @@ async function initMic() {
                     <div class="arrow" data-popper-arrow></div>
                     Say: 1 Bedroom rentals under 3,000 in CityName
                 </div>
-                <canvas id="canvas" width="1129" height="789"></canvas>
+                <canvas id="canvas" width="1129" height="789" style="position:absolute; top:0; z-index: 100000;"></canvas>
                 `;
         let elemDivText = document.createElement('div');
         elemDivText.innerHTML = '<div class="textDivMic">' +
